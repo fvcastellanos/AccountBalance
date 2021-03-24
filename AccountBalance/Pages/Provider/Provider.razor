@@ -1,0 +1,75 @@
+@inherits ProviderBase
+
+@page "/providers"
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <h2>Providers</h2>
+            <p>Configure Providers (Banks)</p>
+            <div class="top-separator">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Search</h4>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="searchName">Name</label>
+                                        <input type="text" class="form-control" id="searchName" placeholder="Name" @bind="Name">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="searchCountry">Country</label>
+                                        <input type="text" class="form-control" id="searchCountry" placeholder="Name" @bind="Country">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="top">Rows</label>
+                                        <select class="custom-select" id="top" @bind="TopRows">
+                                            <option selected value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <input type="button" class="btn btn-secondary" value="Search" @onclick="GetProviders" />
+                            @* <input type="button" class="btn btn-primary" value="Add Product" @onclick="ShowAddModal" /> *@
+                        </fieldset>
+                    </div>
+                </div>
+
+            </div>
+
+            <ErrorMessage Display="@DisplayErrorMessage" Message="@ErrorMessage" />
+
+            <div class="top-separator">
+                <table class="table table-striped">
+                    <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var provider in Providers)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@provider.Name</td>
+                                <td>@provider.Country</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
