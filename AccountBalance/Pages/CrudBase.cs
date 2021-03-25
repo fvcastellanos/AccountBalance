@@ -9,6 +9,9 @@ namespace AccountBalance.Pages
         protected bool HasModalError;
         protected string ModalErrorMessage;
 
+        protected abstract void Update();
+        protected abstract void Add();
+
         protected void DisplayModalError(string error)
         {
             HasModalError = true;
@@ -30,5 +33,22 @@ namespace AccountBalance.Pages
         {
             DisplayModal = false;
         }
+
+        protected void HideAddModal()
+        {
+            HideModalError();
+            HideModal();
+        }
+
+        protected void SaveChanges()
+        {
+            if (ModifyModal)
+            {
+                Update();
+                return;
+            }
+
+            Add();
+        }        
     }
 }

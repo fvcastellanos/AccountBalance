@@ -11,6 +11,7 @@ namespace AccountBalance.Pages
         [Inject]
         protected ProviderService ProviderService { get; set; }
 
+        protected ProviderView ProviderView;
         protected IEnumerable<ProviderView> Providers;
         protected int TopRows;
         protected string Name;
@@ -22,6 +23,7 @@ namespace AccountBalance.Pages
             Country = "GT";
             Name = "";
 
+            HideAddModal();
             GetProviders();
         }
 
@@ -30,6 +32,31 @@ namespace AccountBalance.Pages
             HideErrorMessage();
             var result = ProviderService.GetProviders(TopRows, Name, Country);
             result.Match(right => Providers = right, ShowErrorMessage);
+        }
+
+        protected void ShowAddModal()
+        {
+            HideModalError();
+            ShowModal();
+            ModifyModal = false;
+            ProviderView = new ProviderView();
+        }
+
+        protected override void Update()
+        {
+
+        }
+
+        protected override void Add()
+        {
+            var result = ProviderService.Add(ProviderView);
+            result.Match(right => {
+
+                HideAddModal();
+                HideModalError();
+                GetProviders();
+                
+            }, ShowErrorMessage);
         }
     }
 }

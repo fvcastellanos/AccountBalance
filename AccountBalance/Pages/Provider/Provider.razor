@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <input type="button" class="btn btn-secondary" value="Search" @onclick="GetProviders" />
-                            @* <input type="button" class="btn btn-primary" value="Add Product" @onclick="ShowAddModal" /> *@
+                            <input type="button" class="btn btn-primary" value="Add Product" @onclick="ShowAddModal" />
                         </fieldset>
                     </div>
                 </div>
@@ -68,6 +68,42 @@
                     </tbody>
                 </table>
             </div>
+
+            @if (DisplayModal)
+            {
+                <div class="modal" tabindex="-1" role="dialog" style="display: block">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add Provider</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="HideAddModal">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <ErrorMessage Display="@HasModalError" Message="@ModalErrorMessage" />
+
+                                <EditForm Model="@ProviderView" OnValidSubmit="@SaveChanges">
+                                    <DataAnnotationsValidator/>
+                                    <ValidationSummary/>
+                                    <div class="form-group">
+                                        <label for="country">Country</label>
+                                        <InputText class="form-control" id="country" placeholder="Country" @bind-value="ProviderView.Country"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <InputText class="form-control" id="name" placeholder="Name" @bind-value="ProviderView.Name"/>
+                                    </div>
+
+                                    <input type="submit" class="btn btn-primary" value="Save" @onclick="SaveChanges" />
+                                    <input type="button" class="btn btn-secondary" value="Cancel" @onclick="HideAddModal"/>
+                                </EditForm>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            }            
 
         </div>
     </div>
