@@ -47,6 +47,17 @@ namespace AccountBalance.Services
             try
             {
                 _logger.LogInformation($"add provider with name: {view.Name} for tenant: {DefaultTenant}");
+
+                var existingProvider = _dbContext.Providers.Where(provider => view.Name.Equals(provider.Name)
+                    && view.Country.Equals(view.Country))
+                    .FirstOrDefault();
+
+                if (existingProvider != null)
+                {
+                    _logger.LogInformation($"provider name: {view.Name} already exists");
+                    return "Provider already exists";
+                }
+
                 var provider = ToModel(view);
                 _dbContext.Providers.Add(provider);
                 _dbContext.SaveChanges();

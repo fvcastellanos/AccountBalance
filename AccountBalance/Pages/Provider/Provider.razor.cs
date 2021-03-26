@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AccountBalance.Domain;
 using AccountBalance.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace AccountBalance.Pages
 {
@@ -19,6 +20,9 @@ namespace AccountBalance.Pages
 
         protected override void OnInitialized()
         {
+            // ProviderView = new ProviderView();
+            // EditContext = new EditContext(ProviderView);
+
             TopRows = 10;
             Country = "GT";
             Name = "";
@@ -40,11 +44,16 @@ namespace AccountBalance.Pages
             ShowModal();
             ModifyModal = false;
             ProviderView = new ProviderView();
+            EditContext = new EditContext(ProviderView);
         }
 
         protected override void Update()
         {
+            
+        }
 
+        protected void foo()
+        {
         }
 
         protected override void Add()
@@ -56,7 +65,7 @@ namespace AccountBalance.Pages
                 HideModalError();
                 GetProviders();
                 
-            }, ShowErrorMessage);
+            }, DisplayModalError);
         }
     }
 }

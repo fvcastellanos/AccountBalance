@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Components.Forms;
+
 namespace AccountBalance.Pages
 {
     public abstract class CrudBase: PageBase
     {
+        protected EditContext EditContext;
         protected bool DisplayModal;
         protected bool DisplayDeleteModal;
         protected bool DisplayViewModal;
@@ -42,13 +45,17 @@ namespace AccountBalance.Pages
 
         protected void SaveChanges()
         {
-            if (ModifyModal)
+            if (EditContext.Validate())
             {
-                Update();
-                return;
+                if (ModifyModal)
+                {
+                    Update();
+                    return;
+                }
+
+                Add();
             }
 
-            Add();
         }        
     }
 }
